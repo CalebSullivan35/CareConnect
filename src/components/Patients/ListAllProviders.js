@@ -63,7 +63,7 @@ export const ListAllProviders = () => {
    {providersList.map((provider) => {
     return (
      <li className=" list-none m-5 border-2 border-black p-5">
-      <p className="mb-2">Name: {provider?.user?.fullName}</p>
+      <p className="mb-2">Name: {provider.fullName}</p>
       <p className="mb-2">Education: {provider.education}</p>
       <p className="mb-2">Specialty: {provider.specialty}</p>
 

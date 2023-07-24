@@ -2,95 +2,94 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const ListMyProviders = () => {
- const navigate = useNavigate();
- const localCapstoneUser = localStorage.getItem("capstone_user");
- const capstoneUserObject = JSON.parse(localCapstoneUser);
- const [myRelationships, setRelationships] = useState([]);
- const [currentPatient, setCurrentPatient] = useState({});
- const [providers, setProviders] = useState([]);
- const [myProviders, setMyProviders] = useState([]);
- const [modifiedRelationships, setModifiedRelationships ] = useState([]);
- // get current patient from user
- useEffect(() => {
-  fetch(`http://localhost:8088/Patients?userId=${capstoneUserObject.id}`)
-   .then((response) => response.json())
-   .then((data) => {
-    setCurrentPatient(data[0]);
-   });
- }, []);
- //fetchest all the providers and expands upon the user.
- useEffect(() => {
-  fetch(`http://localhost:8088/Providers?_expand=user`)
-   .then((response) => response.json())
-   .then((data) => setProviders(data));
- }, []);
+  const navigate = useNavigate();
+  const localCapstoneUser = localStorage.getItem("capstone_user");
+  const capstoneUserObject = JSON.parse(localCapstoneUser);
+  const [myRelationships, setRelationships] = useState([]);
+  const [currentPatient, setCurrentPatient] = useState({});
+  const [providers, setProviders] = useState([]);
 
- //fetches relationships
- useEffect(() => {
-  fetch(
-   `http://localhost:8088/ProviderPatientRelationships?patientId=${currentPatient.id}&_expand=provider`
-  )
-   .then((response) => response.json())
-   .then((data) => {
-    setRelationships(data);
-   });
- }, [providers, modifiedRelationships]);
+  // get current patient from user
+  useEffect(() => {
+    fetch(`http://localhost:8088/patients?userId=${capstoneUserObject.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrentPatient(data[0]);
+      });
+  }, []);
+  //fetchest all the providers and expands upon the user.
+  useEffect(() => {
+    fetch(`http://localhost:8088/providers?_expand=user`)
+      .then((response) => response.json())
+      .then((data) => setProviders(data));
+  }, [currentPatient]);
 
- //filters down to get just my providers specific infomation
- useEffect(() => {
-  const myProvidersInformations = providers.filter((provider) => {
-   console.log(provider);
-   return myRelationships.some(
-    (relationship) => relationship.providerId === provider.id
-   );
-  });
-  console.log(myProvidersInformations);
-  setModifiedRelationships(myProvidersInformations);
- }, [myRelationships]);
+  //fetches relationships
+  useEffect(() => {
+    fetch(
+      `http://localhost:8088/providerPatientRelationships?patientId=${currentPatient.id}&_expand=provider`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setRelationships(data);
+      });
+  }, [providers]);
 
- const findRelationshipBasedUponProviderId = (myProvider) => {
-  const relationshipToDelete = myRelationships.find(
-   (relationship) => relationship.providerId === myProvider.id
+  const handleDeleteButton = (relationshipId) => {
+    fetch(
+      `http://localhost:8088/providerPatientRelationships/${relationshipId}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((response) => response.json())
+      .then(() => {
+        // Refetch the provider relationships after successful deletion
+        fetch(
+          `http://localhost:8088/providerPatientRelationships?patientId=${currentPatient.id}&_expand=provider`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            setRelationships(data);
+          });
+      });
+  };
+
+  return (
+    <div className="bg-white h-screen">
+      <div className="flex justify-center">
+        <button
+          className="mt-5 border-black border-2 w-30 px-2"
+          onClick={() => {
+            navigate("/ListAllProviders");
+          }}
+        >
+          Find New Providers!
+        </button>
+      </div>
+      <div className="w-screen">
+        {myRelationships.map((myRelationship) => {
+          return (
+            <li className="list-none m-10 border-2 border-black p-5">
+              <p className="mb-2 ">
+                Name: {myRelationship?.provider?.fullName}
+              </p>
+              <p className="mb-2">
+                Education: {myRelationship?.provider?.education}
+              </p>
+              <p className="mb-2">
+                Specialty: {myRelationship?.provider?.specialty}
+              </p>
+              <button
+                className="text-red-500 hover:text-red-900"
+                onClick={() => handleDeleteButton(myRelationship.id)}
+              >
+                Leave Provider
+              </button>
+            </li>
+          );
+        })}
+      </div>
+    </div>
   );
-  return relationshipToDelete.id;
- };
- const handleDeleteButton = (relationshipId) => {
-  fetch(
-   `http://localhost:8088/ProviderPatientRelationships/${relationshipId}`,
-   {
-    method: "DELETE",
-   }
-  );
- };
-
- return (
-  <div className="flex flex-col items-center">
-   <button
-    className="mt-5 border-black border-2 w-30 px-2"
-    onClick={() => {
-     navigate("/ListAllProviders");
-    }}
-   >
-    Find New Providers!
-   </button>
-   <div className="w-screen">
-    {myProviders.map((myProvider) => {
-     return (
-      <li className=" list-none m-10 border-2 border-black p-5 w-screen">
-       <p className="mb-2 ">Name: {myProvider?.user?.fullName}</p>
-       <p className="mb-2">Education: {myProvider?.education}</p>
-       <p className="mb-2">Specialty: {myProvider?.specialty}</p>
-       <button
-        onClick={() =>
-         handleDeleteButton(findRelationshipBasedUponProviderId(myProvider))
-        }
-       >
-        Leave Provider
-       </button>
-      </li>
-     );
-    })}
-   </div>
-  </div>
- );
 };
