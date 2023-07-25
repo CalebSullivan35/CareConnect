@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from "react-router-dom"
 import { PatientProfile } from "../Patients/PatientProfile"
 import { ListAllProviders } from "../Patients/ListAllProviders"
 import { ListMyProviders } from "../Patients/ListMyProviders"
+import { PatientMyAppointments } from "../Patients/PatientMyAppointments"
 
 export const PatientViews = () => {
 
@@ -17,7 +18,8 @@ export const PatientViews = () => {
    >
         <Route path="PatientProfile" element={< PatientProfile />} />
         <Route path="ListAllProviders" element={<ListAllProviders />}/>
-        <Route path="ListMyProviders" element={<ListMyProviders />}/>
+        <Route path="ListMyProviders" element={<ListMyProviders />} />
+        <Route path="PatientMyAppointments" element={<PatientMyAppointments />} />
    </Route>
   </Routes>
   )

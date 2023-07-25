@@ -10,7 +10,7 @@ export const PatientNav = () => {
         <Link to="/ListMyProviders">My Providers</Link>
       </li>
       <li className="text-m hover:text-slate-400 link-underline">
-        <Link>My Appointments</Link>
+        <Link to="/PatientMyAppointments">My Appointments</Link>
       </li>
       <li className="text-m hover:text-slate-400 link-underline">
         <Link to="/PatientProfile">My Profile</Link>
