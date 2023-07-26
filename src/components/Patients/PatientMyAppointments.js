@@ -82,6 +82,7 @@ export const PatientMyAppointments = () => {
     <div className="border-2 m-5 w-5/12">
      <h1 className="text-center">Current Openings!</h1>
      <OpeningsByProviders
+     setMyScheduledAppointments={setMyScheduledAppointments}
       capstoneUserObject={capstoneUserObject}
       userAsPatient={userAsPatient}
      />
