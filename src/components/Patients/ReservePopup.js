@@ -1,100 +1,147 @@
 import { useEffect, useState } from "react";
 
 export const ReservePopup = ({
-  setReservePopup,
-  appointmentToSend,
-  setAppointmentToSend,
-  userAsPatient,
-  setMyScheduledAppointments
+ setReservePopup,
+ appointmentToSend,
+ setAppointmentToSend,
+ userAsPatient,
+ setMyScheduledAppointments,
+ setProviderSpecificAvailableAppointments,
+ selectedProvider,
 }) => {
-  const [patientPrimaryComplaint, setPatientPrimaryComplaint] = useState("");
-  const [isScheduled, setIsScheduled] = useState(false);
+ const [patientPrimaryComplaint, setPatientPrimaryComplaint] = useState("");
+ const [readyToPost, setReadyToPost] = useState(false);
+ const [appointmentToPut, setAppointmentToPut] = useState({});
+ const [wasPosted, setWasPosted] = useState(false);
+ const [readyToPut, setReadyToPut] = useState(false);
+ const [wasPutted, setWasPutted] = useState(false);
 
-  //function that will post everything.
-  const handleScheduleButton = async () => {
-    setAppointmentToSend((prevState) => ({
-      ...prevState,
-      PrimaryComplaint: patientPrimaryComplaint,
-    }));
-    setIsScheduled(true);
-  };
+ // Fetch the matching appointment to the appointment we are going to post. We will do a put with this later
 
-  // Use useEffect to trigger fetch when appointmentToSend state changes and isScheduled is true
-  useEffect(() => {
-    if (isScheduled && appointmentToSend.PrimaryComplaint !== "") {
-      fetch("http://localhost:8088/scheduledAppointments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(appointmentToSend),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error("Error while making the POST request:", error);
-        })
-        .finally(() => {
-          setIsScheduled(false); // Reset the flag after the API call is completed
-        });
+ useEffect(() => {
+  fetch(
+   `http://localhost:8088/providerAllAppointments/${appointmentToSend.providerAllAppointmentsId}`
+  )
+   .then((response) => response.json())
+   .then((data) => {
+    const updatedData = { ...data, isAvailable: false };
+    console.log("appointment To Put =", updatedData);
+    setAppointmentToPut(updatedData);
+   });
+ }, [appointmentToSend]);
+
+ // after the post we will use a use effect to then put the matching apppointment.
+ useEffect(() => {
+  if (wasPosted) {
+   fetch(
+    `http://localhost:8088/providerAllAppointments/${appointmentToPut.id}`,
+    {
+     method: "PUT",
+     headers: {
+      "Content-Type": "application/json",
+     },
+     body: JSON.stringify(appointmentToPut), // Use appointmentToPut data for the PUT request
     }
-  }, [appointmentToSend, isScheduled]);
+   )
+    .then((response) => response.json())
+    .then(() => {
+     setWasPutted(true);
+     setWasPosted(false);
+    });
+  }
+ }, [wasPosted]);
 
-  //fetch updated list of appointments
-  useEffect(() =>{
-    fetch(
-      `http://localhost:8088/scheduledAppointments?patientId=${userAsPatient.id}&_expand=providerAllAppointments&_expand=provider`
-     )
-      .then((response) => response.json())
-      .then((data) => {
-       setMyScheduledAppointments(data);
-      })
-  },[isScheduled])
+ //  use effect to filter the list of appointments based on if they are available or not.
+ useEffect(() => {
+  fetch(
+   `http://localhost:8088/providerAllAppointments?providerId=${selectedProvider.id}&isAvailable=true`
+  )
+   .then((response) => response.json())
+   .then((data) => {
+    setProviderSpecificAvailableAppointments(data);
+   })
+   
+ }, [wasPutted]);
 
-  // Rest of your component code...
+ //use Effect that will post, only when readyToPost is true
+ useEffect(() => {
+  if (readyToPost) {
+   fetch("http://localhost:8088/scheduledAppointments", {
+    method: "POST",
+    headers: {
+     "Content-Type": "application/json",
+    },
+    body: JSON.stringify(appointmentToSend),
+   }).then(() => {
+    setReadyToPost(false);
+    setWasPosted(true);
+   });
+  }
+ }, [readyToPost]);
 
-  useEffect(() => {
-    console.log(appointmentToSend);
-  }, [appointmentToSend]);
+ //use Effect that will re render when it sees something was posted it will refetch my scheduled appointments.
+ useEffect(() => {
+  if (wasPosted) {
+   fetch(
+    `http://localhost:8088/scheduledAppointments?patientId=${userAsPatient.id}&_expand=providerAllAppointments&_expand=provider`
+   )
+    .then((response) => response.json())
+    .then((data) => {
+     setMyScheduledAppointments(data);
+    })
+    .then(() => {
+     setWasPosted(false);
+    });
+  }
+ }, [wasPosted]);
 
-  const handlePrimaryComplaintChange = (event) => {
-    setPatientPrimaryComplaint(event.target.value);
-  };
+ //saves the  primary complaint on change
+ const handlePrimaryComplaintChange = (event) => {
+  setPatientPrimaryComplaint(event.target.value);
+ };
 
-  return (
-    <div className=" fixed inset-0 flex flex-col items-center justify-center text-center ">
-      <div className="bg-white p-10 rounded shadow-lg">
-        <h3 className="mb-5 text-lg">Please Enter Your Primary Complaint</h3>
-        <input
-          type="text"
-          className="mb-5 text-center"
-          name="complaint"
-          placeholder="Primary Complaint"
-          value={patientPrimaryComplaint}
-          onChange={handlePrimaryComplaintChange}
-        />
-        <div className="flex justify-evenly">
-          <button
-            className="border-2 p-1 px-2 rounded-lg shadow-sm"
-            onClick={async () => {
-              await handleScheduleButton();
-              setReservePopup(false);
-            }}
-          >
-            Schedule
-          </button>
-          <button
-            className="border-2 p-1 px-2 rounded-lg shadow-sm"
-            onClick={() => {
-              setReservePopup(false);
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
+ //Do the post in here.
+ const handleScheduleButton = () => {
+  setAppointmentToSend((prevState) => ({
+   ...prevState,
+   PrimaryComplaint: patientPrimaryComplaint,
+  }));
+  setReadyToPost(true);
+ };
+
+ return (
+  <div className="fixed inset-0 flex flex-col items-center justify-center text-center">
+   <div className="bg-white p-10 rounded shadow-lg">
+    <h3 className="mb-5 text-lg">Please Enter Your Primary Complaint</h3>
+    <input
+     type="text"
+     className="mb-5 text-center"
+     name="complaint"
+     placeholder="Primary Complaint"
+     value={patientPrimaryComplaint}
+     onChange={handlePrimaryComplaintChange}
+    />
+    <div className="flex justify-evenly">
+     <button
+      className="border-2 p-1 px-2 rounded-lg shadow-sm"
+           onClick={() => {
+             handleScheduleButton();
+             setTimeout(() =>  setReservePopup(false), 300 ) 
+           }
+           }
+     >
+      Schedule
+     </button>
+     <button
+      className="border-2 p-1 px-2 rounded-lg shadow-sm"
+      onClick={() => {
+        setReservePopup(false);
+      }}
+     >
+      Cancel
+     </button>
     </div>
-  );
+   </div>
+  </div>
+ );
 };
