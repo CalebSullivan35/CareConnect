@@ -59,10 +59,12 @@ export const ListAllProviders = () => {
  };
 
  return (
-  <div>
+  <>
+  <h1 className="text-center text-5xl mt-4 underline">All Providers</h1>
+  <div className="flex flex-wrap justify-around mt-10">
    {providersList.map((provider) => {
     return (
-     <li className=" list-none m-5 border-2 border-black p-5">
+     <li className=" list-none m-5 border-2 border-black p-5 w-5/12">
       <p className="mb-2">Name: {provider.fullName}</p>
       <p className="mb-2">Education: {provider.education}</p>
       <p className="mb-2">Specialty: {provider.specialty}</p>
@@ -81,5 +83,6 @@ export const ListAllProviders = () => {
     );
    })}
   </div>
+  </>
  );
 };

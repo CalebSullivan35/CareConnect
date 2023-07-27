@@ -109,6 +109,7 @@ export const ReservePopup = ({
   setReadyToPost(true);
  };
 
+
  return (
   <div className="fixed inset-0 flex flex-col items-center justify-center text-center">
    <div className="bg-white p-10 rounded shadow-lg">
