@@ -112,11 +112,11 @@ export const ReservePopup = ({
 
  return (
   <div className="fixed inset-0 flex flex-col items-center justify-center text-center">
-   <div className="bg-white p-10 rounded shadow-lg">
-    <h3 className="mb-5 text-lg">Please Enter Your Primary Complaint</h3>
+   <div className="bg-white p-10 rounded-xl shadow-2xl">
+    <h3 className="mb-5 text-2xl font-mono font-bold">Please Enter Your Primary Complaint</h3>
     <input
      type="text"
-     className="mb-5 text-center"
+     className="mb-7 mt-5 text-center w-9/12 h-10 rounded-md border-2 border-slate-500"
      name="complaint"
      placeholder="Primary Complaint"
      value={patientPrimaryComplaint}
@@ -124,7 +124,7 @@ export const ReservePopup = ({
     />
     <div className="flex justify-evenly">
      <button
-      className="border-2 p-1 px-2 rounded-lg shadow-sm"
+      className="border-2 p-1 px-2 rounded-lg shadow-sm buttonEffect text-blue-500"
            onClick={() => {
              handleScheduleButton();
              setTimeout(() =>  setReservePopup(false), 300 ) 
@@ -134,7 +134,7 @@ export const ReservePopup = ({
       Schedule
      </button>
      <button
-      className="border-2 p-1 px-2 rounded-lg shadow-sm"
+      className="border-2 p-1 px-2 rounded-lg shadow-sm buttonEffect text-red-400"
       onClick={() => {
         setReservePopup(false);
       }}

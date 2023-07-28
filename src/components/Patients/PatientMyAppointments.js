@@ -90,11 +90,11 @@ export const PatientMyAppointments = () => {
   };
 
   return (
-    <div className="flex flex-col justify-evenly">
+    <div className="flex flex-col bg-slate-200 w-screen h-screen">
       <h1 className="text-center text-5xl mt-5 mb-5">Appointment Manager</h1>
       <div className="flex flex-row justify-evenly">
-        <div className="border-2 m-5 w-5/12">
-          <h1 className="text-center text-3xl ">Your Scheduled Appointments.</h1>
+        <div className=" bg-white border-2 m-5 w-5/12 h-fit">
+          <h1 className="text-center text-3xl mt-5 font-mono font-bold pb-3">Your Scheduled Appointments</h1>
           <div>
             {myScheduledAppointments.map((appointment) => {
               return (
@@ -109,7 +109,7 @@ export const PatientMyAppointments = () => {
                   <div className="flex flex-row justify-between">
                     <h3>Reason: {appointment?.PrimaryComplaint}</h3>
                     <button
-                      className="text-red-400 mr-5"
+                      className="text-red-400 mr-5 buttonEffect border px-2 py-1 rounded-md font-mono font-semibold"
                       onClick={() =>
                         handleCancelAppointmentButton(
                           appointment,
@@ -125,8 +125,8 @@ export const PatientMyAppointments = () => {
             })}
           </div>
         </div>
-        <div className="border-2 m-5 w-5/12">
-          <h1 className="text-center text-3xl mb-2">Current Openings!</h1>
+        <div className=" bg-white border-2 m-5 w-5/12 rounded-xl h-fit">
+          <h1 className="text-center text-3xl mb-5 font-mono font-bold mt-5">Current Openings!</h1>
           <OpeningsByProviders
             setMyScheduledAppointments={setMyScheduledAppointments}
             capstoneUserObject={capstoneUserObject}

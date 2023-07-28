@@ -32,7 +32,7 @@ export const NavBarGreeting = () => {
 
   return (
     
-    <h2 className=" absolute left-5">Greetings! {currentUser.fullName}</h2>
+    <h2 className=" absolute left-5">Greetings! {currentUser?.fullName}</h2>
     
   )
 };

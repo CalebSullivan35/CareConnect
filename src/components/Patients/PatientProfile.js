@@ -87,12 +87,14 @@ export const PatientProfile = () => {
  };
 
  return (
-  <div className="flex flex-col w-screen justify-center align-middle items-center mt-20">
-   <div className="flex flex-col items-center">
+   <div className="flex flex-col items-center  bg-slate-200 w-screen h-screen">
+     <h1 className="font-mono text-4xl mb-12 mt-32">Personal Profile Information</h1>
+   <div className="flex flex-col items-center w-3/12 border-2 border-black bg-white rounded-2xl py-10">
     <fieldset>
-     <div className="mb-2 w-50">
-      <label>Full Name: </label>
+     <div className="mb-5 w-50">
+      <label className="font-mono text-2xl">Full Name: </label>
       <input
+       className="font-mono text-2xl"
        required
        type="text"
        placeholder="Full name"
@@ -105,9 +107,10 @@ export const PatientProfile = () => {
        }}
       />
      </div>
-     <div className="mb-2 w-50">
-      <label>Current Address: </label>
+     <div className="mb-5 w-50">
+      <label className="font-mono text-2xl">Current Address: </label>
       <input
+       className="font-mono text-2xl"
        required
        type="text"
        placeholder="Address"
@@ -120,11 +123,11 @@ export const PatientProfile = () => {
        }}
       />
      </div>
-     <div className="mb-2 w-50">
-      <label>Current Height: </label>
+     <div className="mb-5 w-50">
+      <label className="font-mono text-2xl">Current Height: </label>
       <input
        required
-       className="w-20 w-50"
+       className="w-20 w-50 font-mono text-2xl"
        type="number"
        placeholder="Height"
        value={patientProfileInformation.height}
@@ -136,13 +139,13 @@ export const PatientProfile = () => {
        }}
       />
      </div>
-     <div className="mb-2">
-      <label>Current Weight: </label>
+     <div className="mb-5">
+      <label className="font-mono text-2xl">Current Weight: </label>
       <input
        required
-       className="w-20"
+       className="w-20 font-mono text-2xl"
        type="number"
-       max="20"
+       max="400"
        placeholder="Weight"
        value={patientProfileInformation.weight}
        onChange={(event) => {
@@ -155,7 +158,7 @@ export const PatientProfile = () => {
      </div>
     </fieldset>
     <button
-     className="w-20"
+     className="font-mono text-2xl border-2 px-2 py-1 rounded-lg buttonEffect"
      onClick={(event) => {
       handleSubmitButton(event);
      }}

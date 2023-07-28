@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import logo from "../auth/capstoneLogo.png"
 
 export const Login = () => {
   const [providers, setProviders] = useState([]);
@@ -61,19 +62,18 @@ export const Login = () => {
   };
 
   return (
-    <main className="flex flex-col w-screen h-screen align-center items-center bg-slate-500">
+    <main className="flex flex-col w-screen h-screen align-center items-center bg-indigo-300 font-mono">
       <section className="">
-        <h1 className=" font-bold text-5xl mt-20 text-center">
-          Health Connect
+        <h1 className=" font-extrabold text-5xl mt-20 text-center">
+          Care<span className="text-6xl">X</span>pert
         </h1>
         <form
-          className=" mt-32 border-2 border-slate-400 p-10 shadow-lg shadow-black rounded-3xl"
+          className=" bg-white mt-32 border-2 border-slate-400 p-10 shadow-md shadow-black rounded-3xl"
           onSubmit={handleLogin}
         >
-          <h1 className="mb-10 font-bold text-center text-3xl">Welcome</h1>
-          <h2 className="text-center mb-3 text-lg">Please sign in</h2>
+          <h1 className="mb-10 font-bold text-center text-3xl py-2 border-b">Login</h1>
           <fieldset className="mb-3">
-            <div className="mb-3 flex justify-between">
+            <div className="mb-3 flex justify-between text-xl">
               <label htmlFor="inputEmail">
                 Email address:&nbsp;&nbsp;&nbsp;
               </label>
@@ -87,7 +87,7 @@ export const Login = () => {
                 autoFocus
               />
             </div>
-            <div className="mb-3 flex justify-end">
+            <div className="mb-3 flex justify-end text-xl">
               <label htmlFor="inputPassword">Password: &nbsp;&nbsp;</label>
               <input
                 type="password"
@@ -96,14 +96,14 @@ export const Login = () => {
               />
             </div>
           </fieldset>
-          <fieldset className="flex justify-evenly">
-            <button className="hover:text-slate-300" type="submit">
+            <div className="flex flex-col">
+            <button className="hover:bg-green-200 text-Black bg-green-300 block text-center border-2 mb-5 text-xl py-1" type="submit">
               Sign in
             </button>
-            <button className="hover:text-slate-300">
+            <button className="hover:text-slate-300 block text-center border-2 text-xl py-1">
               <Link to="/register">Not a member yet?</Link>
             </button>
-          </fieldset>
+            </div>
         </form>
       </section>
     </main>

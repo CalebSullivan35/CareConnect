@@ -59,30 +59,39 @@ export const ListAllProviders = () => {
  };
 
  return (
-  <>
-  <h1 className="text-center text-5xl mt-4 underline">All Providers</h1>
-  <div className="flex flex-wrap justify-around mt-10">
-   {providersList.map((provider) => {
-    return (
-     <li className=" list-none m-5 border-2 border-black p-5 w-5/12">
-      <p className="mb-2">Name: {provider.fullName}</p>
-      <p className="mb-2">Education: {provider.education}</p>
-      <p className="mb-2">Specialty: {provider.specialty}</p>
-
-      {hasRelationship(provider) ? (
-       <p>This is one of your current providers.</p>
-      ) : (
-       <button
-        className="text-blue-700 hover:text-blue-400"
-        onClick={() => handleBecomePatientButton(provider)}
-       >
-        Become Patient
-       </button>
-      )}
-     </li>
-    );
-   })}
+  <div className="w-screen h-screen  bg-slate-200">
+     <h1 className="text-center text-5xl mt-4 font-mono">All Providers</h1>
+     <div className="flex justify-center mt-10">
+       {/* TODO Add functionality for Search Bar */}
+     <input className = "w-3/12 h-10 rounded-xl p-4 text-xl" type="search" placeholder="Search For A Provider..." />
+     </div>
+   <div className="flex flex-wrap justify-evenly mt-10 ">
+    {providersList.map((provider) => {
+     return (
+      <li className=" list-none m-5 border-2 bg-white border-black p-5 w-3/12 h-60 rounded-3xl">
+       <div className="border-b w-100 p-2 mb-2">
+        <p className="mb-1 font-mono text-3xl text-center ">
+         {provider.fullName}
+        </p>
+       </div>
+       <p className="mb-2 text-xl">Education: {provider.education}</p>
+       <p className="mb-2 text-xl">Specialty: {provider.specialty}</p>
+       <div className="flex justify-center mt-5">
+        {hasRelationship(provider) ? (
+         <p className="text-lg text-green-600 font-semibold">This is one of your current providers.</p>
+        ) : (
+         <button
+          className="text-white hover:bg-slate-500 text-center border px-2 py-1 rounded-lg bg-slate-600 text-lg buttonEffect"
+          onClick={() => handleBecomePatientButton(provider)}
+         >
+          Become Patient
+         </button>
+        )}
+       </div>
+      </li>
+     );
+    })}
+   </div>
   </div>
-  </>
  );
 };

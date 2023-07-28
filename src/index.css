@@ -36,3 +36,15 @@ code {
   background-size: 100% 3px;
   background-position: 0 100%
 }
+
+
+
+.buttonEffect:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.buttonEffect:active {
+  box-shadow: none;
+  transform: translateY(0);
+}

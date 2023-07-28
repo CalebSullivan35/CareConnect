@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export const ProviderProfile = () => {
   const navigate = useNavigate();
+  const [showPopUp, setShowPopUp] = useState(false);
   const [currentProvider, setCurrentProvider] = useState(false);
   const localCapstoneUser = localStorage.getItem("capstone_user");
   const capstoneUserObject = JSON.parse(localCapstoneUser);
@@ -85,12 +86,14 @@ export const ProviderProfile = () => {
   };
 
   return (
-    <div className="flex flex-col w-screen justify-center align-middle items-center mt-20">
-      <div className="flex flex-col items-center">
+    <div className="flex flex-col w-screen bg-slate-200 h-screen items-center">
+      <h1 className="mt-10 text-4xl font-mono underline">Profile Information</h1>
+      <div className="flex flex-col items-center mt-10 p-5 border bg-white w-3/12">
         <fieldset>
-          <div className="mb-2 w-50">
-            <label>Full Name: </label>
+          <div className="mb-2 w-12/12 text-2xl flex flex-row justify-between">
+            <label className="pt-2">Full Name: </label>
             <input
+              className="p-2"
               required
               type="text"
               placeholder="Full name"
@@ -103,11 +106,11 @@ export const ProviderProfile = () => {
               }}
             />
           </div>
-          <div className="mb-2 w-50">
-            <label>Specialty: </label>
+          <div className="mb-2 w-50 text-2xl flex flex-row justify-between">
+            <label className="pt-2">Specialty: </label>
             <input
               required
-              className="w-20 w-50"
+              className="p-2"
               type="text"
               placeholder=""
               value={providerProfileInformation.specialty}
@@ -119,11 +122,11 @@ export const ProviderProfile = () => {
               }}
             />
           </div>
-          <div className="mb-2">
-            <label>Education: </label>
+          <div className="mb-2 w-50 text-2xl flex flex-row justify-between">
+            <label className="pt-2">Education: </label>
             <input
               required
-              className="w-20"
+              className="p-2"
               type="text"
               placeholder=""
               value={providerProfileInformation.education}
@@ -137,7 +140,7 @@ export const ProviderProfile = () => {
           </div>
         </fieldset>
         <button
-          className="w-20"
+          className="text-2xl buttonEffect border-2 px-2 py-1 rounded-xl"
           onClick={(event) => {
             handleSubmitButton(event);
           }}

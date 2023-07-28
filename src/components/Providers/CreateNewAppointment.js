@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 export const CreateNewAppointment = ({
  currentProvider,
- setAllProviderAppointments,
+  setAllProviderAppointments,
+  setShowCreateAppointment,
 }) => {
   //get The current date
  let currentDate = new Date()
@@ -66,7 +67,7 @@ export const CreateNewAppointment = ({
     .then(() => {
      // After successful POST request, fetch the updated list of appointments
      fetch(
-      `http://localhost:8088/providerAllAppointments?providerid=${currentProvider.id}`
+      `http://localhost:8088/providerAllAppointments?providerId=${currentProvider.id}`
      )
       .then((response) => response.json())
       .then((data) => {
@@ -78,24 +79,28 @@ export const CreateNewAppointment = ({
     })
     .catch((error) => {
      console.error("Error sending data to API:", error);
+    }).then(() => {
+      setShowCreateAppointment(false)
     });
   }
  };
 
  return (
-  <div className="border-2 h-2/6 w-2/12 absolute bottom-12 right-5 p-3">
-   <div className="flex justify-center align-middle items-center flex-col mt-10">
-    <h1>Create New Appointment </h1>
+  <div className="fixed inset-0 flex flex-col items-center mt-64 text-center">
+     <div className="flex justify-center align-middle items-center flex-col mt-10 bg-white p-10 rounded-2xl">
+       <div className=" border-b-2 p-5">
+       <h1 className="text-3xl font-mono">Create New Appointment </h1>
+       </div >
     <div className="flex flex-col m-5">
      <input
-      className="mb-5"
+           className="mb-5 text-3xl"
       type="date"
       name="date"
       value={appointmentInformation.date}
       onChange={handleChange}
      ></input>
      <select
-      className="mb-5"
+      className="mb-5 text-3xl"
       type="time"
       name="time"
       value={appointmentInformation.time}
@@ -113,7 +118,7 @@ export const CreateNewAppointment = ({
       <option>05:00 PM</option>
      </select>
     </div>
-    <button onClick={handleSubmitButton}>Submit</button>
+    <button className="font-mono text-3xl buttonEffect px-2 py-1 border-2 rounded-xl" onClick={handleSubmitButton}>Submit</button>
    </div>
   </div>
  );

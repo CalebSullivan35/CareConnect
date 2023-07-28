@@ -70,11 +70,11 @@ export const OpeningsByProviders = ({
 
   return (
     <>
-      <div className="flex flex-row ml-5">
-        <div className="flex flex-row space-x-5 mb-5">
-          <h2 className="text-2xl">Select Your Provider:</h2>
+      <div className="flex flex-row ml-5 justify-center">
+        <div className="flex justify-center align-middle space-x-5 mb-5">
+          <h2 className=" font-mono text-2xl font-bold">Select Your Provider:</h2>
           <select
-            className="text-xl border-2 rounded-md"
+            className="text-xl border-2 rounded-md font-mono"
             name="provider"
             value={selectedProvider ? selectedProvider.id : ""}
             onChange={handleChange}
@@ -96,11 +96,12 @@ export const OpeningsByProviders = ({
           Available Appointments:
         </h2>
         {filteredAppointmentsByAvailable.map((appointment) => (
-          <div key={appointment.id} className="flex border-2 m-3">
+          <div key={appointment.id} className="flex border-2 m-3 justify-between">
             <h2 className="ml-5 m-3">
-              {appointment.date} at {appointment.time}
+              Date: {appointment.date} Time: {appointment.time}
             </h2>
             <button
+              className="mr-10 my-2 font-mono text-lg font-semibold buttonEffect border-2 px-2 rounded-xl text-blue-600"
               onClick={() => {
                 setAppointmentToSend({
                   providerAllAppointmentsId: appointment.id,
