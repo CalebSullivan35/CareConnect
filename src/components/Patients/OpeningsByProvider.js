@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ReservePopup } from "./ReservePopup";
-
+import FadeIn from "react-fade-in/lib/FadeIn"
 export const OpeningsByProviders = ({
   capstoneUserObject,
   userAsPatient,
@@ -91,13 +91,13 @@ export const OpeningsByProviders = ({
           </select>
         </div>
       </div>
-      <div>
+      <FadeIn>
         <h2 className="ml-5 mb-5 text-center text-xl">
           Available Appointments:
         </h2>
         {filteredAppointmentsByAvailable.map((appointment) => (
-          <div key={appointment.id} className="flex border-2 m-3 justify-between">
-            <h2 className="ml-5 m-3">
+          <FadeIn key={appointment.id} className="flex border-2 m-3 justify-between">
+            <h2 className="ml-5 m-3 text-xl font-mono">
               Date: {appointment.date} Time: {appointment.time}
             </h2>
             <button
@@ -118,9 +118,9 @@ export const OpeningsByProviders = ({
             >
               Reserve
             </button>
-          </div>
+          </FadeIn>
         ))}
-      </div>
+      </FadeIn>
       {reservePopup && (
         <ReservePopup
           setReservePopup={setReservePopup}

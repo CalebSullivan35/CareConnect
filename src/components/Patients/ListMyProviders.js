@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import FadeIn from "react-fade-in";
 
 export const ListMyProviders = () => {
  const navigate = useNavigate();
@@ -99,10 +100,10 @@ export const ListMyProviders = () => {
     </button>
    </div>
    <div className="flex justify-center w-screen">
-    <div className="flex flex-wrap justify-around w-screen mx-40">
+    <FadeIn className="grid grid-cols-4 w-screen mx-10">
      {myRelationships.map((myRelationship) => {
       return (
-       <li className="list-none m-10 border-2 bg-white border-black p-5 w-3/12 h-60 rounded-lg flex flex-col">
+       <li className="flex flex-col list-none m-5 border-2 bg-white border-black p-5 w-96 h-60 rounded-3xl">
         <div className="flex justify-center border-b border-black mb-2">
          <p className="mb-2 text-3xl">{myRelationship?.provider?.fullName}</p>
         </div>
@@ -123,7 +124,7 @@ export const ListMyProviders = () => {
        </li>
       );
      })}
-    </div>
+    </FadeIn>
    </div>
   </div>
  );

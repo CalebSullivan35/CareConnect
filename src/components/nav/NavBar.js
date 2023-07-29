@@ -6,7 +6,7 @@ export const NavBar = () => {
  const capstoneUserObject = JSON.parse(localCapstoneUser);
  if (capstoneUserObject.isProvider) {
   return (
-   <header className="bg-indigo-500 border-b border-black px-4 py-2 flex justify-between items-center font-mono">
+   <header className="">
     <ProviderNav />
    </header>
   );
