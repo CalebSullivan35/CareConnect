@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { OpeningsByProviders } from "./OpeningsByProvider";
+import FadeIn from "react-fade-in";
 
 export const PatientMyAppointments = () => {
   //get Current User
@@ -99,7 +100,7 @@ export const PatientMyAppointments = () => {
           <h1 className="text-center text-3xl mt-5 font-mono font-bold pb-3">
             Your Scheduled Appointments
           </h1>
-          <div>
+          <FadeIn>
             {myScheduledAppointments.map((appointment) => {
               return (
                 <div className="border-2 m-5 p-5">
@@ -137,7 +138,7 @@ export const PatientMyAppointments = () => {
                 </div>
               );
             })}
-          </div>
+          </FadeIn>
         </div>
         <div className=" bg-white border-2 m-5 w-5/12 rounded-xl h-fit">
           <h1 className="text-center text-3xl mb-5 font-mono font-bold mt-5">

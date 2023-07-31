@@ -4,7 +4,7 @@ import { NavBarGreeting } from "./NavBarGreeting.js";
 export const ProviderNav = () => {
   const navigate = useNavigate();
   return (
-    <div className="navbar bg-primary text-2xl">
+    <div className="navbar bg-neutra-content text-3xl font-mono">
       <div className="flex-1">
       <NavBarGreeting />
       </div>

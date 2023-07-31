@@ -10,12 +10,15 @@ export const ListAllProviders = () => {
     currentProviderPatientRelationships,
     setCurrentProviderPatientRelationships,
   ] = useState([]);
+  const [filteredProviders, setFilteredProviders] = useState([]);
+
   // fetch all of the current providers.
   useEffect(() => {
     fetch(`http://localhost:8088/Providers?_expand=user`)
       .then((response) => response.json())
       .then((data) => {
         SetProvidersList(data);
+        setFilteredProviders(data);
       });
   }, []);
   // get current patient from user
@@ -36,6 +39,8 @@ export const ListAllProviders = () => {
         setCurrentProviderPatientRelationships(data);
       });
   });
+
+  //set initial value of filtered providers to the current list of all providers when page loads
 
   const handleBecomePatientButton = (provider) => {
     const dataToSendToApi = {
@@ -58,19 +63,36 @@ export const ListAllProviders = () => {
     );
   };
 
+  //function to handle change for search bar
+  const searchBarList = (event) => {
+    if (event.target.value === "") {
+      setFilteredProviders(providersList);
+      return;
+    }
+    const searchBarList = providersList.filter((provider) => {
+      return provider.fullName
+        .toLowerCase()
+        .includes(event.target.value.toLowerCase());
+    });
+    setFilteredProviders(searchBarList);
+  };
+
   return (
     <div className="w-screen h-screen flex flex-col align-middle bg-slate-200">
       <h1 className="text-center text-5xl mt-4 font-mono">All Providers</h1>
       <div className="flex justify-center mt-10">
-        {/* TODO Add functionality for Search Bar */}
+        <div className="relative">
         <input
-          className="w-3/12 h-10 rounded-xl p-4 text-xl"
+          className="text-3xl botder-non  p-2 px-4 pr-10 rounded-xl"
           type="search"
-          placeholder="Search For A Provider..."
-        />
+          placeholder="Search For A Provider"
+          onChange={searchBarList}
+        ></input>
+        <i className="fa-solid fa-magnifying-glass mt-2 absolute right-2 top-2"></i>
+        </div>
       </div>
       <FadeIn className="grid grid-cols-4 mt-10 mx-5">
-        {providersList.map((provider) => {
+        {filteredProviders.map((provider) => {
           return (
             <li className=" flex flex-col list-none m-5 border-2 bg-white border-black p-5 w-96 h-60 rounded-3xl">
               <div className="border-b w-100 p-2 mb-2">

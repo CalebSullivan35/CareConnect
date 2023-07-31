@@ -45,7 +45,11 @@ export const Login = () => {
             })
           );
           if (doIHaveAProfile(user)) {
-            navigate("/");
+            if(user.isProvider){
+              navigate("/ProviderHome")
+            } else{
+              navigate("/PatientHome")
+            }
           } else {
             if (user.isProvider) {
               navigate("/ProviderProfile");

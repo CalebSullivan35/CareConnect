@@ -3,6 +3,7 @@ import { PatientProfile } from "../Patients/PatientProfile"
 import { ListAllProviders } from "../Patients/ListAllProviders"
 import { ListMyProviders } from "../Patients/ListMyProviders"
 import { PatientMyAppointments } from "../Patients/PatientMyAppointments"
+import { PatientHome } from "../Patients/PatientHome"
 
 export const PatientViews = () => {
 
@@ -20,6 +21,7 @@ export const PatientViews = () => {
         <Route path="ListAllProviders" element={<ListAllProviders />}/>
         <Route path="ListMyProviders" element={<ListMyProviders />} />
         <Route path="PatientMyAppointments" element={<PatientMyAppointments />} />
+        <Route path="PatientHome" element={<PatientHome />} />
    </Route>
   </Routes>
   )
