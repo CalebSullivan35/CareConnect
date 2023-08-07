@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import FadeIn from "react-fade-in/lib/FadeIn";
 
 export const ProviderScheduledAppointments = ({
  currentProvider,
@@ -53,37 +54,50 @@ export const ProviderScheduledAppointments = ({
    });
  };
 
- return (
-  <div>
-   <div className="mt-5">
-    {scheduledProviderAppointments.map((appointment) => {
-     return (
-      <div key={appointment.id} className="mb-5 w-5/12 border-2 bg-white rounded-2xl p-5">
-       <div className="flex flex-row text-2xl font-semibold text-center justify-center w-full">
-        <p> Date: {appointment?.providerAllAppointments?.date}</p>
-        <p className="ml-5">
-         {" "}
-         Time: {appointment?.providerAllAppointments?.time}
-        </p>
-       </div>
-       <div className="text-xl mb-5">
-        <p className="mt-5 mb-5">Patient: {appointment?.patient?.fullName}</p>
-        <p>Primary Complaint: {appointment?.PrimaryComplaint}</p>
-       </div>
-       <div className="w-full flex justify-center">
-        <button
-         className="text-red-500 text-xl buttonEffect px-2 border rounded-lg py-1"
-         onClick={() => {
-          handleCancel(appointment);
-         }}
-        >
-         Cancel Appointment
-        </button>
-       </div>
-      </div>
-     );
-    })}
+ if (scheduledProviderAppointments < 1) {
+  return (
+   <div className="bg-base-200 flex flex-col items-center">
+    <h1 className="text-4xl text-center mt-40">
+     {" "}
+     You have No Upcoming Appointments{" "}
+    </h1>
    </div>
-  </div>
- );
+  );
+ } else
+  return (
+   <div>
+    <FadeIn className="mt-5 grid grid-cols-3">
+     {scheduledProviderAppointments.map((appointment) => {
+      return (
+       <div
+        key={appointment.id}
+        className="mb-5 border-2 bg-white rounded-2xl p-5 h-full "
+       >
+        <div className="flex flex-row text-2xl font-semibold text-center justify-center w-full ">
+         <p> Date: {appointment?.providerAllAppointments?.date}</p>
+         <p className="ml-5">
+          {" "}
+          Time: {appointment?.providerAllAppointments?.time}
+         </p>
+        </div>
+        <div className="text-xl mb-5">
+         <p className="mt-5 mb-5">Patient: {appointment?.patient?.fullName}</p>
+         <p>Primary Complaint: {appointment?.PrimaryComplaint}</p>
+        </div>
+        <div className="w-full flex justify-center">
+         <button
+          className="text-red-500 text-xl buttonEffect px-2 border rounded-lg py-1"
+          onClick={() => {
+           handleCancel(appointment);
+          }}
+         >
+          Cancel Appointment
+         </button>
+        </div>
+       </div>
+      );
+     })}
+    </FadeIn>
+   </div>
+  );
 };

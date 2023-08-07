@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 
 export const CreateNewAppointment = ({
  currentProvider,
-  setAllProviderAppointments,
-  setShowCreateAppointment,
+ setAllProviderAppointments,
+ setShowCreateAppointment,
 }) => {
-  //get The current date
- let currentDate = new Date()
+ //get The current date
+ let currentDate = new Date();
  const currentDay = currentDate.getDate(); // 25
  const currentMonth = currentDate.getMonth() + 1; // 7 (July, adding 1 to get the actual month number)
  const currentYear = currentDate.getFullYear(); // 2023
@@ -14,7 +14,7 @@ export const CreateNewAppointment = ({
 
  const [appointmentInformation, setAppointmentInformation] = useState({
   providerId: currentProvider.id,
-  date:  `${currentwholeDate}`,
+  date: `${currentwholeDate}`,
   time: "08:00 AM",
  });
  const [existingAppointments, setExistingAppointments] = useState([]);
@@ -36,7 +36,6 @@ export const CreateNewAppointment = ({
    [name]: value,
   }));
  };
-
 
  const handleSubmitButton = () => {
   const isExistingAppointment = existingAppointments.some(
@@ -79,21 +78,19 @@ export const CreateNewAppointment = ({
     })
     .catch((error) => {
      console.error("Error sending data to API:", error);
-    }).then(() => {
-      setShowCreateAppointment(false)
     });
   }
  };
 
  return (
   <div className="fixed inset-0 flex flex-col items-center mt-64 text-center">
-     <div className="flex justify-center align-middle items-center flex-col mt-10 bg-white p-10 rounded-2xl">
-       <div className=" border-b-2 p-5">
-       <h1 className="text-3xl font-mono">Create New Appointment </h1>
-       </div >
+   <div className="flex justify-center align-middle items-center flex-col mt-10 bg-base-100 p-10 rounded-2xl">
+    <div className=" border-b-2 p-5">
+     <h1 className="text-3xl font-mono">Create New Appointment </h1>
+    </div>
     <div className="flex flex-col m-5">
      <input
-           className="mb-5 text-3xl"
+      className="mb-5 text-3xl"
       type="date"
       name="date"
       value={appointmentInformation.date}
@@ -118,7 +115,21 @@ export const CreateNewAppointment = ({
       <option>05:00 PM</option>
      </select>
     </div>
-    <button className="font-mono text-3xl buttonEffect px-2 py-1 border-2 rounded-xl" onClick={handleSubmitButton}>Submit</button>
+    <div className="flex flex-row justify-evenly w-96">
+     <button
+      className="font-mono text-3xl buttonEffect px-2 py-1 border-2 rounded-xl text-blue-600"
+      onClick={handleSubmitButton}
+     >
+      Submit
+     </button>
+     <button
+      className="font-mono text-red buttonEffect text-3xl px-2 py-1 border-2 rounded-xl text-red-600"
+           onClick={() => { setShowCreateAppointment(false) }}
+     >
+      {" "}
+      Close
+     </button>
+    </div>
    </div>
   </div>
  );

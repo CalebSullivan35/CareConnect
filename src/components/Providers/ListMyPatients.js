@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import FadeIn from "react-fade-in/lib/FadeIn";
 import { useNavigate } from "react-router-dom";
 
 export const ListMyPatients = () => {
@@ -28,24 +29,51 @@ export const ListMyPatients = () => {
    });
  }, [currentProvider]);
 
- return (
-  <div className="bg-slate-200 h-screen">
-   <div className="flex justify-center w-screen">
-    <div className="flex flex-wrap justify-around w-screen mx-40">
-     {myRelationships.map((relationship) => {
-      return (
-       <ul className="list-none m-10 border-2 bg-white border-black p-5 w-3/12 h-60 rounded-lg flex flex-col">
-        <li className=" mb-7 text-3xl font-semibold font-mono border-b-2 text-center ">
-        {relationship?.patient?.fullName}
-        </li>
-        <li className="text-2xl"> Height: {relationship?.patient?.height} In</li>
-        <li className="text-2xl">Weight: {relationship?.patient?.weight} Lbs</li>
-        <li className="text-2xl">Address: {relationship?.patient?.address}</li>
-       </ul>
-      );
-     })}
+ if (myRelationships.length < 1) {
+  return (
+   <div className="bg-base-200 flex flex-col  w-screen h-screen">
+    <h1 className="text-4xl text-center mt-60">
+     You Have No Patients Currently Assigned To You....
+    </h1>
+   </div>
+  );
+ } else {
+  return (
+   <div className="bg-base-200 h-screen">
+    <div className="flex justify-center w-screen">
+     <FadeIn className="grid grid-cols-3 w-screen mx-40">
+      {myRelationships.map((relationship) => {
+       return (
+        <ul className="list-none m-10 border-2 bg-white border-black p-5 h-60 rounded-lg flex flex-col">
+         <li className=" mb-3 text-3xl font-semibold font-mono border-b-2 text-center ">
+          {relationship?.patient?.fullName}
+         </li>
+         <div className="flex flex-row justify-between">
+          <div>
+           <li className="text-2xl">
+            {" "}
+            Height: {relationship?.patient?.height} In
+           </li>
+           <li className="text-2xl">
+            Weight: {relationship?.patient?.weight} Lbs
+           </li>
+           <li className="text-2xl">
+            Address: {relationship?.patient?.address}
+           </li>
+          </div>
+          <div>
+           <img
+            className=" w-40 h-40 border-2 border-black"
+            src={relationship?.patient?.profileImage}
+           />
+          </div>
+         </div>
+        </ul>
+       );
+      })}
+     </FadeIn>
     </div>
    </div>
-  </div>
- );
+  );
+ }
 };

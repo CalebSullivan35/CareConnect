@@ -13,6 +13,7 @@ export const PatientProfile = () => {
     address: "",
     height: 0,
     weight: 0,
+    profileImage: ""
   });
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export const PatientProfile = () => {
             address: data[0]?.address,
             height: data[0]?.height,
             weight: data[0]?.weight,
+            profileImage: data[0]?.profileImage
           });
         }
       });
@@ -48,6 +50,7 @@ export const PatientProfile = () => {
         address: patientProfileInformation.address,
         height: parseInt(patientProfileInformation.height),
         weight: parseInt(patientProfileInformation.weight),
+        profileImage : patientProfileInformation.profileImage
       };
       // Fetch to Post The object to the API
       return fetch("http://localhost:8088/Patients", {
@@ -59,7 +62,7 @@ export const PatientProfile = () => {
       })
         .then((response) => response.json())
         .then(() => {
-          navigate("http://localhost:3000/");
+          navigate("/PatientHome");
         });
     } else {
       const patientProfileInfoToSendToApiAsPut = {
@@ -68,6 +71,7 @@ export const PatientProfile = () => {
         address: patientProfileInformation.address,
         height: parseInt(patientProfileInformation.height),
         weight: parseInt(patientProfileInformation.weight),
+        profileImage : patientProfileInformation.profileImage
       };
       return fetch(
         `http://localhost:8088/Patients/${patientProfileInformation.id}`,
@@ -81,13 +85,13 @@ export const PatientProfile = () => {
       )
         .then((response) => response.json())
         .then(() => {
-          navigate("http://localhost:3000/");
+          navigate("/PatientHome");
         });
     }
   };
 
   return (
-    <div className="flex flex-col items-center  bg-slate-200 w-screen h-screen">
+    <div className="flex flex-col items-center  bg-base-200 w-screen h-screen">
       <h1 className="font-mono text-4xl mb-12 mt-32">
         Personal Profile Information
       </h1>
@@ -105,6 +109,22 @@ export const PatientProfile = () => {
                 setPatientProfileInformation((prevProfile) => ({
                   ...prevProfile,
                   fullName: event.target.value,
+                }));
+              }}
+            />
+          </div>
+          <div className="mb-5 w-50">
+            <label className="font-mono text-2xl">Profile Image: </label>
+            <input
+              className="font-mono text-2xl"
+              required
+              type="text"
+              placeholder="Profile Image"
+              value={patientProfileInformation.profileImage}
+              onChange={(event) => {
+                setPatientProfileInformation((prevProfile) => ({
+                  ...prevProfile,
+                  profileImage: event.target.value,
                 }));
               }}
             />
@@ -140,6 +160,7 @@ export const PatientProfile = () => {
                 }));
               }}
             />
+            <span className="font-mono text-2xl"> Inches</span>
           </div>
           <div className="mb-5">
             <label className="font-mono text-2xl">Current Weight: </label>
@@ -156,7 +177,7 @@ export const PatientProfile = () => {
                   weight: event.target.value,
                 }));
               }}
-            />
+            /><span className="font-mono text-2xl"> Pounds</span>
           </div>
         </fieldset>
         <button

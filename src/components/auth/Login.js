@@ -7,6 +7,7 @@ export const Login = () => {
   const [providers, setProviders] = useState([]);
   const [patients, setPatients] = useState([]);
   const [email, set] = useState("Caleb@email.com");
+  const [password, setPassword]=useState("")
   const navigate = useNavigate();
   //logic that if the user does not have a matching profile then they will be routed to the create profile screen.
 
@@ -35,7 +36,7 @@ export const Login = () => {
     return fetch(`http://localhost:8088/users?email=${email}`)
       .then((res) => res.json())
       .then((foundUsers) => {
-        if (foundUsers.length === 1) {
+        if (foundUsers.length === 1 && foundUsers[0].password === password) {
           const user = foundUsers[0];
           localStorage.setItem(
             "capstone_user",
@@ -69,13 +70,13 @@ export const Login = () => {
     <main className="flex flex-col w-screen h-screen align-center items-center bg-indigo-300 font-mono">
       <section className="">
         <h1 className=" font-extrabold text-5xl mt-20 text-center">
-          Care<span className="text-6xl">X</span>pert
+          CareConnect <i class="fa-solid fa-circle-nodes fa-2xl fa-spin"></i>
         </h1>
         <form
           className=" bg-white mt-32 border-2 border-slate-400 p-10 shadow-md shadow-black rounded-3xl"
           onSubmit={handleLogin}
         >
-          <h1 className="mb-10 font-bold text-center text-3xl py-2 border-b">Login</h1>
+          <h1 className="mb-10 font-bold text-center text-5xl py-2 border-b ">Login</h1>
           <fieldset className="mb-3">
             <div className="mb-3 flex justify-between text-xl">
               <label htmlFor="inputEmail">
@@ -95,6 +96,8 @@ export const Login = () => {
               <label htmlFor="inputPassword">Password: &nbsp;&nbsp;</label>
               <input
                 type="password"
+                value={password}
+                onChange={(evt) => setPassword(evt.target.value)}
                 placeholder="Password"
                 className="rounded-md py-px pl-px"
               />

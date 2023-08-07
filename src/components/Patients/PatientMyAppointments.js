@@ -93,7 +93,7 @@ export const PatientMyAppointments = () => {
   };
 
   return (
-    <div className="flex flex-col bg-slate-200  w-screen min-h-screen ">
+    <div className="flex flex-col bg-base-200  w-screen h-5/6 min-h-max">
       <h1 className="text-center text-5xl mt-5 mb-5">Appointment Manager</h1>
       <div className="flex flex-row justify-evenly">
         <div className=" bg-white border-2 m-5 w-5/12 h-fit rounded-xl">

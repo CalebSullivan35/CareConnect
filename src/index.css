@@ -14,37 +14,49 @@ code {
  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-#root{
-  display: flex;
-  flex-direction: column;
+#root {
+ display: flex;
+ flex-direction: column;
 }
 
 .link-underline {
-  border-bottom-width: 0;
-  background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
-  background-size: 0 3px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size .5s ease-in-out;
+ border-bottom-width: 0;
+ background-image: linear-gradient(transparent, transparent),
+  linear-gradient(#fff, #fff);
+ background-size: 0 3px;
+ background-position: 0 100%;
+ background-repeat: no-repeat;
+ transition: background-size 0.5s ease-in-out;
 }
 
 .link-underline-black {
-  background-image: linear-gradient(transparent, transparent), linear-gradient(#F2C, #F2C)
+ background-image: linear-gradient(transparent, transparent),
+  linear-gradient(#f2c, #f2c);
 }
 
 .link-underline:hover {
-  background-size: 100% 3px;
-  background-position: 0 100%
+ background-size: 100% 3px;
+ background-position: 0 100%;
 }
 
-
-
 .buttonEffect:hover {
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  transform: translateY(-2px);
+ box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+ transform: translateY(-2px);
 }
 
 .buttonEffect:active {
-  box-shadow: none;
-  transform: translateY(0);
+ box-shadow: none;
+ transform: translateY(0);
+}
+
+.chat-box {
+ position: absolute;
+ z-index: 1;
+ width: 500px;
+ height: 500px;
+ z-index: 50;
+}
+
+.hidden {
+ display: none; /* Hide the chat box when show is false */
 }

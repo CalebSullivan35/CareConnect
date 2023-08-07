@@ -78,12 +78,12 @@ export const ListAllProviders = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col align-middle bg-slate-200">
+    <div className="w-screen h-screen align-middle items-center bg-base-200 justify-center">
       <h1 className="text-center text-5xl mt-4 font-mono">All Providers</h1>
       <div className="flex justify-center mt-10">
         <div className="relative">
         <input
-          className="text-3xl botder-non  p-2 px-4 pr-10 rounded-xl"
+          className="text-3xl botder-non p-2 px-4 pr-10 rounded-xl"
           type="search"
           placeholder="Search For A Provider"
           onChange={searchBarList}
@@ -91,10 +91,10 @@ export const ListAllProviders = () => {
         <i className="fa-solid fa-magnifying-glass mt-2 absolute right-2 top-2"></i>
         </div>
       </div>
-      <FadeIn className="grid grid-cols-4 mt-10 mx-5">
+      <FadeIn className="grid grid-cols-4 mt-10 w-8/12 mx-auto">
         {filteredProviders.map((provider) => {
           return (
-            <li className=" flex flex-col list-none m-5 border-2 bg-white border-black p-5 w-96 h-60 rounded-3xl">
+            <li className="flex flex-col list-none m-5 border-2 bg-white border-black p-5 w-96 h-60 rounded-3xl">
               <div className="border-b w-100 p-2 mb-2">
                 <p className="mb-1 font-mono text-3xl text-center ">
                   {provider.fullName}
