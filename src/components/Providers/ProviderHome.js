@@ -54,7 +54,7 @@ export const ProviderHome = () => {
   <div className="w-screen h-screen bg-neutral-content">
    <h1 className="font-extrabold font-mono text-6xl mt-5 ml-5">CareXpress</h1>
    <p className="font-bold font-mono text-3xl mt-5 ml-8">
-    Welcome! <span className="italic underline">{userAsProvider.fullName}</span>
+    Welcome! <span className="italic underline">{userAsProvider?.fullName}</span>
    </p>
    <button
      className="font-extrabold font-mono text-4xl mt-5 ml-5 mr-10 border-2 px-3 py-2 rounded-xl buttonEffect bg-primary absolute bottom-4 right-5"

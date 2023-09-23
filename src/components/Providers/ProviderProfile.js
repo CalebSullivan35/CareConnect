@@ -96,7 +96,7 @@ export const ProviderProfile = () => {
    <h1 className="mt-10 text-4xl font-mono underline">Profile Information</h1>
    <div className="flex flex-col items-center mt-10 p-5 border bg-white w-3/12 rounded-xl">
     <fieldset>
-     <div className="mb-2 w-12/12 text-2xl flex flex-row justify-between">
+     <div className="mb-5 w-12/12 text-2xl flex flex-row justify-between">
       <label className="pt-2">Full Name: </label>
       <input
        className="p-2"
@@ -112,23 +112,37 @@ export const ProviderProfile = () => {
        }}
       />
      </div>
-     <div className="mb-2 w-12/12 text-2xl flex flex-row justify-between">
-      <label className="pt-2">Profile Image: </label>
+
+     <div className="mb-5 w-50">
+      <label className=" text-2xl">Profile Image: </label>
       <input
-       className="p-2"
-       required
-       type="text"
-       placeholder="Profile Image"
-       value={providerProfileInformation.profileImage}
+       id="profileImageInput"
+       className="hidden"
+       type="file"
+       accept="image/*"
        onChange={(event) => {
-        setProviderProfileInformation((prevProfile) => ({
-         ...prevProfile,
-         profileImage: event.target.value,
-        }));
+        const selectedImage = event.target.files[0];
+        if (selectedImage) {
+         const reader = new FileReader();
+         reader.onload = () => {
+          const imageDataUrl = reader.result;
+          setProviderProfileInformation((prevProfile) => ({
+           ...prevProfile,
+           profileImage: imageDataUrl,
+          }));
+         };
+         reader.readAsDataURL(selectedImage);
+        }
        }}
       />
+      <label
+       htmlFor="profileImageInput"
+       className="font-mono text-xl cursor-pointer bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg text-white"
+      >
+       Select Image
+      </label>
      </div>
-     <div className="mb-2 w-50 text-2xl flex flex-row justify-between">
+     <div className="mb-5 w-50 text-2xl flex flex-row justify-between">
       <label className="pt-2">Specialty: </label>
       <input
        required
@@ -144,7 +158,7 @@ export const ProviderProfile = () => {
        }}
       />
      </div>
-     <div className="mb-2 w-50 text-2xl flex flex-row justify-between">
+     <div className="mb-5 w-50 text-2xl flex flex-row justify-between">
       <label className="pt-2">Education: </label>
       <input
        required
@@ -178,7 +192,7 @@ export const ProviderProfile = () => {
      </div>
     </fieldset>
     <button
-     className="text-2xl buttonEffect border-2 px-2 py-1 rounded-xl"
+     className="btn btn-primary"
      onClick={(event) => {
       handleSubmitButton(event);
      }}

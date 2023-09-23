@@ -12,7 +12,7 @@ export const NavBar = () => {
   );
  } else {
   return (
-   <header className="bg-indigo-300 border-b-2 border-black">
+   <header className="">
     <PatientNav />
    </header>
   );

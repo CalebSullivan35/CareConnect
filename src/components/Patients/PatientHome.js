@@ -54,14 +54,16 @@ export const PatientHome = () => {
  };
 
  return (
-  <div className="bg-base-200 w-screen h-screen flex flex-col  ">
+  <div className="bg-base-200 w-screen h-screen flex flex-col font-mono">
    <div className="flex flex-row justify-between">
-    <h1 className="font-extrabold font-mono text-6xl mt-5 ml-5">CareConnect <i class="fa-solid fa-circle-nodes fa-sm"></i></h1>
+    <h1 className="font-extrabold font-mono text-6xl mt-5 ml-5">
+     CareConnect <i class="fa-solid fa-circle-nodes fa-sm"></i>
+    </h1>
     <button
-     className="font-extrabold font-mono text-4xl mt-5 ml-5 mr-10 border-2 px-3 py-2 rounded-xl buttonEffect bg-primary absolute bottom-4 right-5"
+     className="btn btn-primary font-extrabold  text-4xl mr-10 border-2 absolute bottom-4 right-5"
      onClick={handleShowPopUp}
     >
-    <i class="fa-solid fa-message"></i> Messages
+     <i class="fa-solid fa-message"></i> Messages
     </button>
     <ChatContainer showPopUp={showPopUp} myProviders={myProviders} />
    </div>
@@ -116,9 +118,7 @@ export const PatientHome = () => {
           <p className="text-2xl font-mono">
            Office Location: {provider?.provider?.address || "N/A"}
           </p>
-          <p className="text-3x; font-mono">
-        
-          </p>
+          <p className="text-3x; font-mono"></p>
          </div>
         </div>
        );
