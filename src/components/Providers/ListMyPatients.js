@@ -61,12 +61,6 @@ export const ListMyPatients = () => {
             Address: {relationship?.patient?.address}
            </li>
           </div>
-          <div>
-           <img
-            className=" w-40 h-40 border-2 border-black"
-            src={relationship?.patient?.profileImage}
-           />
-          </div>
          </div>
         </ul>
        );

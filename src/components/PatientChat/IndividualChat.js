@@ -7,8 +7,8 @@ export const IndividualChat = ({
  setShowProviderList,
  selectedProviderToChat,
  selectedConversation,
-  setSelectedConversation,
-  updateSelectedProviderToChat
+ setSelectedConversation,
+ updateSelectedProviderToChat,
 }) => {
  const localCapstoneUser = localStorage.getItem("capstone_user");
  const capstoneUserObject = JSON.parse(localCapstoneUser);
@@ -49,15 +49,16 @@ export const IndividualChat = ({
 
  return (
   <div className={`${showIndividualChat ? "block" : "hidden"} w-full h-full`}>
-   <button className="bg-primary px-2 rounded-xl hover:bg-primary-focus"
+   <button
+    className="bg-primary px-2 rounded-xl hover:bg-primary-focus"
     onClick={() => {
      setShowIndividualChat(false);
-         setShowProviderList(true);
-         setSelectedConversation({});
-         updateSelectedProviderToChat({});
+     setShowProviderList(true);
+     setSelectedConversation({});
+     updateSelectedProviderToChat({});
     }}
    >
-     <i class="fa-solid fa-arrow-left button-primary"></i> Conversations
+    <i class="fa-solid fa-arrow-left button-primary"></i> Conversations
    </button>
 
    <Message

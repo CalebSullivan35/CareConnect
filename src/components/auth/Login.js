@@ -85,7 +85,7 @@ export const Login = () => {
       <span>Login</span>
      </h1>
      <fieldset className="mb-3">
-      <div className="mb-3 flex justify-between text-xl items-center">
+      <div className="mb-3 flex justify-end text-xl items-center ">
        <label htmlFor="inputEmail" className="text-2xl font-semibold">
         Email:&nbsp;&nbsp;&nbsp;
        </label>

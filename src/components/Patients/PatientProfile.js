@@ -92,10 +92,10 @@ export const PatientProfile = () => {
 
  return (
   <div className="flex flex-col items-center  bg-base-200 w-screen h-screen">
-   <h1 className="font-mono text-4xl mb-12 mt-32">
+   <h1 className="font-mono text-6xl mb-12 mt-32 font-semibold">
     Personal Profile Information
    </h1>
-   <div className="flex flex-col items-center w-5/12 border-2 border-black bg-white rounded-2xl py-10">
+   <div className="flex flex-col items-center w-3/12 border-2 border-black bg-white rounded-2xl py-10">
     <fieldset className="pl-5">
      <div className="mb-5 w-50">
       <label className="font-mono text-2xl">Full Name: </label>
@@ -113,36 +113,7 @@ export const PatientProfile = () => {
        }}
       />
      </div>
-     <div className="mb-5 w-50">
-      <label className="font-mono text-2xl">Profile Image: </label>
-
-      <input
-       id="profileImageInput"
-       className="hidden"
-       type="file"
-       accept="image/*"
-       onChange={(event) => {
-        const selectedImage = event.target.files[0];
-        if (selectedImage) {
-         const reader = new FileReader();
-         reader.onload = () => {
-          const imageDataUrl = reader.result;
-          setPatientProfileInformation((prevProfile) => ({
-           ...prevProfile,
-           profileImage: imageDataUrl,
-          }));
-         };
-         reader.readAsDataURL(selectedImage);
-        }
-       }}
-      />
-      <label
-       htmlFor="profileImageInput"
-       className="font-mono text-xl cursor-pointer bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg text-white"
-      >
-       Select Image
-      </label>
-     </div>
+     <div className="mb-5 w-50"></div>
      <div className="mb-5 w-50">
       <label className="font-mono text-2xl">Current Address: </label>
       <input

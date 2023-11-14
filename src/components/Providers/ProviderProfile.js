@@ -51,7 +51,6 @@ export const ProviderProfile = () => {
     specialty: providerProfileInformation.specialty,
     education: providerProfileInformation.education,
     address: providerProfileInformation.address,
-    profileImage: providerProfileInformation.profileImage,
    };
    // Fetch to Post The object to the API
    return fetch("http://localhost:8088/Providers", {
@@ -72,7 +71,6 @@ export const ProviderProfile = () => {
     address: providerProfileInformation.address,
     specialty: providerProfileInformation.specialty,
     education: providerProfileInformation.education,
-    profileImage: providerProfileInformation.profileImage,
    };
    return fetch(
     `http://localhost:8088/Providers/${providerProfileInformation.id}`,
@@ -113,35 +111,7 @@ export const ProviderProfile = () => {
       />
      </div>
 
-     <div className="mb-5 w-50">
-      <label className=" text-2xl">Profile Image: </label>
-      <input
-       id="profileImageInput"
-       className="hidden"
-       type="file"
-       accept="image/*"
-       onChange={(event) => {
-        const selectedImage = event.target.files[0];
-        if (selectedImage) {
-         const reader = new FileReader();
-         reader.onload = () => {
-          const imageDataUrl = reader.result;
-          setProviderProfileInformation((prevProfile) => ({
-           ...prevProfile,
-           profileImage: imageDataUrl,
-          }));
-         };
-         reader.readAsDataURL(selectedImage);
-        }
-       }}
-      />
-      <label
-       htmlFor="profileImageInput"
-       className="font-mono text-xl cursor-pointer bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg text-white"
-      >
-       Select Image
-      </label>
-     </div>
+     <div className="mb-5 w-50"></div>
      <div className="mb-5 w-50 text-2xl flex flex-row justify-between">
       <label className="pt-2">Specialty: </label>
       <input

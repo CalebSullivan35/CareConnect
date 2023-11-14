@@ -39,11 +39,7 @@ export const ProviderMessage = ({ selectedConversation, renderMessages }) => {
      return (
       <div className="chat chat-end">
        <div className="chat-header">{relationship?.provider?.fullName}</div>
-       <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
-         <img src={relationship?.provider?.profileImage} />
-        </div>
-       </div>
+
        <div className="chat-bubble text-xl">{message?.message}</div>
       </div>
      );
@@ -51,11 +47,7 @@ export const ProviderMessage = ({ selectedConversation, renderMessages }) => {
      return (
       <div className="chat chat-start">
        <div className="chat-header">{relationship?.patient?.fullName}</div>
-       <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
-         <img src={relationship?.patient?.profileImage} />
-        </div>
-       </div>
+
        <div className="chat-bubble">{message?.message}</div>
       </div>
      );

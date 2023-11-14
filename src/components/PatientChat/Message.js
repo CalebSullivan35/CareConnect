@@ -21,8 +21,7 @@ export const Message = ({ selectedConversation, renderMessages }) => {
    .catch((error) => {});
  }, [selectedConversation]);
 
-  
-  //Get the list of messages coorelating to current conversation 
+ //Get the list of messages coorelating to current conversation
  useEffect(() => {
   fetch(
    `http://localhost:8088/messages?conversationId=${selectedConversation?.id}`
@@ -40,11 +39,6 @@ export const Message = ({ selectedConversation, renderMessages }) => {
      return (
       <div key={message.id} className="chat chat-end">
        <div className="chat-header">{relationship?.patient?.fullName}</div>
-       <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
-         <img src={relationship?.patient?.profileImage} />
-        </div>
-       </div>
        <div className="chat-bubble">{message?.message}</div>
       </div>
      );
@@ -52,11 +46,6 @@ export const Message = ({ selectedConversation, renderMessages }) => {
      return (
       <div key={message.id} className="chat chat-start">
        <div className="chat-header">{relationship?.provider?.fullName}</div>
-       <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
-         <img src={relationship?.provider?.profileImage} />
-        </div>
-       </div>
        <div className="chat-bubble">{message?.message}</div>
       </div>
      );
